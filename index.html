@@ -78,12 +78,9 @@
             }
 
             attributeChangedCallback(attrName, oldVal, newVal) {
-                switch (attrName) {
-                    case 'progress':
-                        this.progress = newVal;
-                        break;
-                }
-                console.log(`change of ${attrName} from ${oldVal} to ${newVal}!`);
+                if (newVal === oldVal) return;
+
+                this.updateIndicator();
             }
 
             updateIndicator() {
