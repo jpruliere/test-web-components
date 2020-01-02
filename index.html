@@ -18,7 +18,7 @@
     <script>
         class ProgressBar extends HTMLElement {
             static get observedAttributes() {
-                return ['progress'];
+                return ['progress', 'min', 'max'];
             }
 
             get progress() {
@@ -28,27 +28,29 @@
             set progress(value) {
                 if (value >= this.min && value <= this.max) {
                     this.setAttribute('progress', value);
+                    this.updateIndicator(value);
                 }
-                this.updateIndicator(value);
             }
 
             get max() {
-                return this.getAttribute('max') | 100;
+                return this.getAttribute('max') || 100;
             }
 
             get min() {
-                return this.getAttribute('min') | 0;
+                return this.getAttribute('min') || 0;
             }
 
             set max(value) {
                 if (value >= this.progress) {
                     this.setAttribute('max', value);
+                    this.updateIndicator(value);
                 }
             }
 
             set min(value) {
                 if (value <= this.progress) {
                     this.setAttribute('min', value);
+                    this.updateIndicator(value);
                 }
             }
 
